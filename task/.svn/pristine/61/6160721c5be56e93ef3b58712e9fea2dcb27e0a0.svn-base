@@ -1,0 +1,35 @@
+package model;
+
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Entity
+public class Position {
+
+    @EmbeddedId
+    private PositionPK id;
+
+    @Column
+    private Long shares;
+
+    public PositionPK getId() {
+        return id;
+    }
+
+    public void setId(PositionPK id) {
+        this.id = id;
+    }
+
+    public Long getShares() {
+        return shares;
+    }
+
+    public void setShares(Long shares) {
+        this.shares = shares;
+    }
+
+}

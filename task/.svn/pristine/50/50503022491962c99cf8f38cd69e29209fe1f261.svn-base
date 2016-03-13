@@ -1,0 +1,55 @@
+<%@ include file="template-header.jsp" %>
+
+<div class="row">
+	<div class="col-lg-12">
+		<form method="post" action="researchCustomer"
+			class="form-inline col-lg-offset-2 col-lg-10" role="search">
+		<div class="table-responsive col-lg-10">
+		<div class="form-group">
+				<label><font size=3> Search by</font></label>
+				<div class="form-group">
+					<select class="form-control" name="searchBy">
+						<option value="firstname">First Name</option>
+						<option value="lastname">Last Name</option>
+						<option value="username">Email</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" style="text-align:right" placeholder="Search Customer" 
+						name="value" value="${fn:escapeXml(param.user)}">
+				</div>
+				<c:if test="${!(empty errorMsgs)}">
+					<div class="alert alert-danger alert-dismissable">
+			            <i class="fa fa-warning"></i>
+			            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			            <c:forEach var="errorMsg" items="${errorMsgs}">
+							<b>${errorMsg}</b><br>
+						</c:forEach>
+			        </div>
+		        </c:if>
+				<c:if test="${empty errorMsgs and !(empty message)}">
+					<div class="alert alert-success alert-dismissable">
+		            <i class="fa fa-check"></i>
+		            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		            <b>${message}</b>
+		        	</div>
+				</c:if>&nbsp;&nbsp;
+				<button type="submit" class="btn btn-primary">Search</button>
+		</div>
+		</div>
+		</form>
+	</div>
+</div>
+
+<h2>Customer List:</h2>
+<font size="5">
+<c:forEach var="customer" items="${customerList}">
+	<a href="toviewcust?customerId=${customer.id}&tabName=custinfo">
+	    <i class="fa fa-envelope"></i>
+	    ${customer.firstname} ${customer.lastname}
+	    </a>
+	    <br>
+</c:forEach>
+</font>
+
+<%@ include file="template-footer.jsp" %>

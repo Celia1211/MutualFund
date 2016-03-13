@@ -1,0 +1,60 @@
+<%@ include file="template-header.jsp" %>
+
+	<h2>${user.firstname} ${user.lastname}</h2>
+	
+	<h3>Current cash balance: ${user.cash}</h3>
+	
+	<h3>Please input the information of the fund you plan to sell:</h3><br>
+	
+	<form method="post" action="sellfund" class="col-lg-4">
+	<div class="form-group">
+		<font size="4">
+			<label for="fundName">Fund Name: ${name}</label>
+		</font>
+			</div>
+			
+	<div class="form-group">
+			<label for="fundTicker">Fund Ticker:</label>
+		<input type="text" id ="fundTicker" class="form-control" placeholder="Fund ticker"
+			name="symbol" value="${fn:escapeXml(param.symbol)}" readonly/></div>
+	
+	<div class="form-group">
+			<label for="currentPrice">Current Price:</label>
+	<label>${fundpricehistory.price}/share</label>
+	</div>
+	
+	<div class="form-group">
+			<label for="shareNumber">Share number to sell:</label>
+		<input type="text" name="shareNumber" class="form-control" placeholder="Shares number" 
+			name="shares" value="${fn:escapeXml(param.shares)}"/>
+	</div>
+	<c:if test="${!(empty errorMsgs)}">
+				<div class="alert alert-danger alert-dismissable">
+		            <i class="fa fa-warning"></i>
+		            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		            <c:forEach var="errorMsg" items="${errorMsgs}">
+						<b>${errorMsg}</b><br>
+					</c:forEach>
+		        </div>
+	        </c:if>
+	
+			<c:if test="${empty errorMsgs and !(empty message)}">
+				<div class="alert alert-success alert-dismissable">
+	            <i class="fa fa-check"></i>
+	            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	            <b>${message}</b>
+	        	</div>
+			</c:if>
+			
+			<div class="form-group"> 
+		 		<div class="col-sm-offset-3 col-sm-3"> 
+					<button type="submit" class="btn btn-primary">Submit</button><br><br>
+				</div> 
+				<div class="col-sm-offset-1 col-sm-5"> 
+					<button type="reset" class="btn btn-primary">Reset</button><br><br>
+				</div> 
+			</div>
+		
+	</form>
+
+<%@ include file="template-footer.jsp" %>

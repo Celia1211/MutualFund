@@ -1,0 +1,38 @@
+package model;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Embeddable
+public class PositionPK implements Serializable {
+
+    private static final long serialVersionUID = 7805160966707950263L;
+
+    @Column
+    private Long customerId;
+
+    @Column
+    private Long fundId;
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public Long getFundId() {
+        return fundId;
+    }
+
+    public void setFundId(Long fundId) {
+        this.fundId = fundId;
+    }
+
+}

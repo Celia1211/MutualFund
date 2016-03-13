@@ -1,0 +1,97 @@
+<jsp:include page="template-headerforCustomer.jsp" />
+        <script type="text/javascript">
+            $(function() {
+                $("#example1").dataTable();
+                $("#example2").dataTable({
+                    "bPaginate": true,
+                    "bLengthChange": false,
+                    "bFilter": false,
+                    "bSort": true,
+                    "bInfo": true,
+                    "bAutoWidth": false
+                });
+            });
+        </script>
+<div class="col-lg-10">
+                        <div class="col-lg-3 col-xs-6">
+                            <!-- small box -->
+                            <div class="small-box bg-aqua">
+                                <div class="inner">
+                                    <h3>
+                                        150
+                                    </h3>
+                                    <p>
+                                        New Orders
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-bag"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">
+                                    More info <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        </div>
+<div class="col-lg-10">
+<h2>Dear ${user.username}</h2>
+<h3>Your current address is ${Customer.addrLine1}${Customer.addrLine2}</h3>
+<h3>Your last trade is on ${Transaction.executeDate}</h3>
+	<div>
+	<font size="3">
+		<tr>
+		<td><input type="text" name="checknumber"/></td>
+		<td><input type="submit" class="btn btn-primary" name="button" value="Request a check"/></td>
+		</tr>
+	</font>
+	</div>
+<form method="post" action="requestcheck">
+
+<h3>Basic Information of the Fund You Own:</h3>
+<table class="table table-striped table-hover" id="example2">
+<!-- <table border="1" cellspacing="0" cellpadding="30" style="margin-left:0.75in"> -->
+	<thead style="font-weight: bold; cursor: default;">
+	 
+	       <select class="form-control">
+			<c:forEach var="myfund" items="${myfundList}">
+			<td>${FundInfo.fundId}</td>
+			<td>${FundInfo.symbol}</td>
+			<td>${FundInfo.fundName}</td>
+			<td>${FundInfo.shares}</td>
+			<td>${FundInfo.value}</td>
+			<td style="text-align:right">${FundInfo.shares}</td>
+			<td style="text-align:right">${FundInfo.value}</td>
+		</c:forEach>
+			</select>
+<!-- 		<tr>
+			<th>No.</th>
+			<th>Ticker</th>
+			<th>Fund Name</th>
+			<th style="text-align:right">Shares Number</th>
+			<th style="text-align:right">Total Value</th>
+			
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>PMSDHS</td>
+			<td>tomorrow security</td>
+			<td style="text-align:right">200.000</td>
+			<td style="text-align:right">$10000.00</td>
+			
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>NSDITS</td>
+			<td>citi bank</td>
+			<td style="text-align:right">100.000</td>
+			<td style="text-align:right">$4900.00</td>
+			
+</tr> -->
+
+	</table>
+	</form>
+	</div>
+	</font>
+<jsp:include page="template-footer.jsp" />

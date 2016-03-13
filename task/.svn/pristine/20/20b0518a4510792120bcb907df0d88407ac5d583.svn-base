@@ -1,0 +1,55 @@
+package dao;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import model.Transaction;
+import util.Constants.TransactionStatus;
+import util.Constants.TransactionType;
+
+/**
+ * @Prime13 Consultants
+ */
+@Repository
+@Transactional
+public class TransactionDao extends GenericDao<Transaction> {
+    public List<Transaction> findByCustomerId(Long customerId, TransactionStatus status) {
+        return em
+                .createQuery("SELECT e From Transaction e WHERE e.customerId = :customerId AND e.status = :status",
+                        genericType)
+                .setParameter("customerId", customerId).setParameter("status", status).getResultList();
+    }
+
+    public Date findLastTransactionByCustId(Long customerId) {
+        return em.createQuery("SELECT MAX(e.executeDate) From Transaction e WHERE e.customerId = :customerId",
+                Date.class).setParameter("customerId", customerId).getResultList().get(0);
+    }
+
+    public List<Transaction> findAllPendingTranBefore(Date orderDate) {
+        return em.createQuery("SELECT e FROM Transaction e WHERE e.executeDate = null AND e.orderDate <= :orderDate",
+                genericType).setParameter("orderDate", orderDate).getResultList();
+    }
+
+    public Long findTotalMoneyByStatus(Long customerId, TransactionType transactionType) {
+
+        Long result = em
+                .createQuery(
+                        "SELECT SUM(e.amount) FROM Transaction e WHERE e.executeDate = null AND e.customerId = :customerId AND e.transactionType =:transactionType",
+                        Long.class)
+                .setParameter("customerId", customerId).setParameter("transactionType", transactionType).getResultList()
+                .get(0);
+        return result == null ? 0 : result;
+    }
+
+    public Long findTotalPendingShares(Long customerId, Long fundId) {
+        Long result = em
+                .createQuery(
+                        "SELECT SUM(e.shares) FROM Transaction e WHERE e.executeDate = null AND e.customerId = :customerId AND e.fund.fundId = :fundId AND e.transactionType = 'SELL'",
+                        Long.class)
+                .setParameter("customerId", customerId).setParameter("fundId", fundId).getResultList().get(0);
+        return result == null ? 0 : result;
+    }
+}

@@ -1,0 +1,21 @@
+<jsp:include page="template-header.jsp" />
+
+<div class="col-lg-10">
+
+	<form method="post" action="login" class="col-lg-3">
+	Username:
+	
+		<input type="text" class="form-control" placeholder="Username"
+			name="userName" /><br> 
+	Password:
+	
+		<input type="password"
+			class="form-control" placeholder="Password" name="password" /><br>
+		<input type="submit" class="btn btn-primary btn-sm" name="button"
+			value="Login" />
+	</form>
+
+</div>
+<br>
+<br>
+<jsp:include page="template-footer.jsp" />

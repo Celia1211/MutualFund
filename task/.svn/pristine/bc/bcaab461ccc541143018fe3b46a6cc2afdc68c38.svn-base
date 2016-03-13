@@ -1,0 +1,38 @@
+package controller;
+
+import static org.junit.Assert.assertNotNull;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.easymock.EasyMock;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
+
+import dao.EmployeeDao;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/application-context.xml" })
+@Rollback
+@Transactional
+public class EmployeeControllerTest {
+    @Autowired
+    private EmployeeController employeeController;
+
+    @Autowired
+    private EmployeeDao employeeDao;
+
+    @Test
+    public void createEmployeeTest() {
+        HttpServletRequest req = EasyMock.createMock(HttpServletRequest.class);
+        employeeController.createEmployee("junittester@andrew.cmu.edu", "123456", "123456", "Xinyan", "Liu", req);
+        assertNotNull(employeeDao.findByColumn("username", "junittester@andrew.cmu.edu"));
+    }
+}

@@ -1,0 +1,11 @@
+
+<jsp:include page="template-header.jsp" />
+
+<div class="col-lg-10">	
+<h3>This is an example. Put your design in this div.</h3>
+
+<a href="tologin">Login</a >
+
+</div>
+
+<jsp:include page="template-footer.jsp" />

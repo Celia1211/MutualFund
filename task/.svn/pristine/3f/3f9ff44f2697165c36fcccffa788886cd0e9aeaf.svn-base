@@ -1,0 +1,67 @@
+<%@ include file="template-header.jsp" %>
+<div class="row">
+
+	<div class="col-lg-12">
+	<div>
+		<form method="post" action="researchFund"
+			class="form-inline col-lg-offset-2 col-lg-10" role="search">
+		<div class="table-responsive col-lg-10">
+			<div class="form-group">
+				<label><font size=3> Search by</font></label>
+				<div class="form-group">
+					<select class="form-control" name="searchBy">
+						<option value="name">Fund Name</option>
+						<option value="symbol">Fund Ticker</option>
+					</select>			
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Search Fund" 
+						name="value" value="${fn:escapeXml(param.fund)}">
+				</div>
+				<button type="submit" class="btn btn-primary">Search</button>
+			</div>
+		</div>
+		</form>
+	</div>
+	</div><br><br><br>
+</div>
+  <div class="box-body table-responsive">
+	                <table id="searchResult_table" class="table table-bordered table-striped table-hover">
+	                      <caption>Showing matching ${fn:length(resultList)} funds</caption>
+	                    <thead>
+  <tr>
+    <th>Fund Name</th>
+    <th>Fund Ticker</th>
+    <th>Last Closing Price</th>
+    <th>Operation</th>
+    <!--  
+    <th>Return(1-mo.)</th>
+    <th>Return(1-yr.)</th>
+    <th>Total Assets ($M)</th>
+    -->
+  </tr>
+	                        
+	                    </thead>
+	                    <tbody>
+                            <c:forEach var="result" items="${resultList}">
+	                            <tr>
+									<td><a href="tofunddetl?fundId=${result.fundId}">${result.name}</a></td>
+									<td>${result.symbol}</td>
+									<td><fmt:formatNumber  value="${result.currentPrice}" type="currency" currencySymbol="$"/></td>
+									<!-- 
+									<td style="text-align:right">${position.shares}</td>
+									<td style="text-align:right">${position.curSharePrice}</td>
+									 -->
+									<td><a href="tobuyfund?fundId=${result.fundId}" class="btn btn-primary">Buy</a></td>
+
+								</tr> 
+							</c:forEach>
+							
+	                    </tbody>
+	                </table>
+	            </div><!-- /.box-body -->
+
+
+<%@ include file="template-footer.jsp" %>
+
+ 

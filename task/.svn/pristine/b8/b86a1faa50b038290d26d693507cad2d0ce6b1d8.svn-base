@@ -1,0 +1,76 @@
+package controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import dao.CustomerDao;
+import dao.EmployeeDao;
+import model.User;
+import util.Utils;
+
+/**
+ * @Prime13 Consultants
+ */
+@Controller
+@Transactional
+public class CommonController {
+
+    @Autowired
+    private CustomerDao customerDao;
+
+    @Autowired
+    private EmployeeDao employeeDao;
+
+    @Autowired
+    private CustomerController customerController;
+
+    @Autowired
+    private EmployeeController employeeController;
+
+    @RequestMapping(path = "tologin", method = RequestMethod.GET)
+    public String toLogin() {
+        return "login";
+    }
+    @RequestMapping(path = "login", method = RequestMethod.GET)
+    public String login(){
+    	 return toLogin();
+    }
+
+    @RequestMapping(path = "login", method = RequestMethod.POST)
+    public String login(@RequestParam("username") String userName, @RequestParam("password") String password,
+            HttpServletRequest request) {
+        User user = customerDao.findByColumn("username", userName);
+        HttpSession session = request.getSession();
+
+        if (user != null && Utils.md5(password).equals(user.getPassword())) {
+            session.setAttribute("user", user);
+            session.setAttribute("role", "Customer");
+            return customerController.toViewAccount("custinfo", request);
+        }
+
+        user = employeeDao.findByColumn("username", userName);
+
+        if (user != null && Utils.md5(password).equals(user.getPassword())) {
+            session.setAttribute("user", user);
+            session.setAttribute("role", "Employee");
+            return employeeController.toTransitionDay(request);
+        }
+
+        request.setAttribute("errorMsgs", "User name or password is incorrect");
+        return "login";
+    }
+
+    @RequestMapping(path = "logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "index";
+    }
+
+}

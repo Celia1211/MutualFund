@@ -1,0 +1,43 @@
+<%@ include file="template-header.jsp" %>
+
+<font size="4">
+	<form method="post" action="changepassword" class="col-lg-4">
+		<label for="oldpassword">Old Password:</label>
+			<input type="password" class="form-control" placeholder="Please input your old password"
+				name="oldPassword" /><br> 
+		<label for="newpassword">New Password:</label>
+					<input type="password" class="form-control" placeholder="At least 6 digit length"
+				name="newPassword" /><br> 
+		<label for="confirmpassword">Confirm New Password:</label>
+					<input type="password" class="form-control" placeholder="Please confirm your new password"
+				name="confirmPassword" /><br> 
+		
+		<div>
+		<c:if test="${!(empty errorMsgs)}">
+		<div class="alert alert-danger alert-dismissable">
+            <i class="fa fa-warning"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <c:forEach var="errorMsg" items="${errorMsgs}">
+				<b>${errorMsg}</b><br>
+			</c:forEach>
+        </div>
+        </c:if>
+		<c:if test="${empty errorMsgs and !(empty message)}">
+			<div class="alert alert-success alert-dismissable">
+            <i class="fa fa-check"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <b>${message}</b>
+        	</div>
+		</c:if>
+		</div>
+		<div class="form-group"> 
+	 		<div class="col-sm-offset-3 col-sm-3"> 
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div> 
+			<div class="col-sm-offset-1 col-sm-5"> 
+				<button type="reset" class="btn btn-primary">Reset</button>
+			</div> 
+		</div>
+	</form>
+</font>
+<%@ include file="template-footer.jsp" %>

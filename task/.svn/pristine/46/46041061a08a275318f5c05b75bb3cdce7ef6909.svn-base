@@ -1,0 +1,45 @@
+<jsp:include page="template-header.jsp" />
+<div class="col-lg-10">
+<h3>Mr.Weiyu Yan</h3>
+<h6>your current address is:417 crag street.</h6>
+<h6>your last trade is on:01/09/2016</h6>
+<h4>Basic Information of the Fund You Own:</h4>
+<form method="post" action="requestcheck">
+<table class="table table-bordered">
+<!-- <table border="1" cellspacing="0" cellpadding="30" style="margin-left:0.75in"> -->
+	<thead>
+		<tr>
+			<th>No.</th>
+			<th>Ticker</th>
+			<th>Fund Name</th>
+			<th>Shares Number</th>
+			<th>Total Value</th>
+			<th>Request a Check($)</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>PMSDHS</td>
+			<td>tomorrow security</td>
+			<td>200</td>
+			<td>$10000</td>
+			<td><input type="text" 
+			name="checknumber" />
+<input type="submit" class="btn btn-primary btn-sm" name="button" value="Request" /></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>NSDITS</td>
+			<td>citi bank</td>
+			<td>100</td>
+			<td>$4900</td>
+			<td><input type="text" 
+			name="checknumber" />
+<input type="submit" class="btn btn-primary btn-sm" name="button" value="Request" /></td>
+</tr>
+
+	</table>
+	</form>
+	</div>
+<jsp:include page="template-footer.jsp" />

@@ -1,0 +1,43 @@
+package dao;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.core.GenericTypeResolver;
+import org.springframework.stereotype.Repository;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Repository
+public abstract class GenericDao<T> {
+
+    Class<T> genericType;
+
+    @PersistenceContext
+    EntityManager em;
+
+    @SuppressWarnings("unchecked")
+    public GenericDao() {
+        this.genericType = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), GenericDao.class);
+    }
+
+    public void save(T entity) {
+        em.persist(entity);
+    }
+
+    public void delete(Object id) {
+        Object entity = em.find(genericType, id);
+        if (entity != null) {
+            em.remove(entity);
+        }
+    }
+
+    public void update(Object entity) {
+        em.merge(entity);
+    }
+
+    public T find(Object id) {
+        return em.find(genericType, id);
+    }
+}

@@ -1,0 +1,77 @@
+package controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Controller
+public class CommonController {
+
+    @RequestMapping(path = "tologin", method = RequestMethod.GET)
+    public String toLogin() {
+        return "login";
+    }
+
+    @RequestMapping(path = "tochgpwd", method = RequestMethod.GET)
+    public String toChangePassword() {
+        return "changepassword";
+    }
+
+    @RequestMapping(path = "tobuyfund", method = RequestMethod.GET)
+    public String toBuyFund() {
+        return "buyfund";
+    }
+
+    @RequestMapping(path = "totranhist", method = RequestMethod.GET)
+    public String toTransactionHistory() {
+        return "TransactionHistory";
+    }
+
+    @RequestMapping(path = "toviewacct", method = RequestMethod.GET)
+    public String toViewAccount() {
+        return "viewaccount";
+    }
+
+    @RequestMapping(path = "tocreatecust", method = RequestMethod.GET)
+    public String toCreateCust() {
+        return "create-customer";
+    }
+
+    @RequestMapping(path = "tocreatefund", method = RequestMethod.GET)
+    public String toCreateFund() {
+        return "create-fund";
+    }
+
+    @RequestMapping(path = "tosellfund", method = RequestMethod.GET)
+    public String toSellFund() {
+        return "sellfund";
+    }
+
+    @RequestMapping(path = "totransiday", method = RequestMethod.GET)
+    public String toTransitionDay() {
+        return "transition-day";
+    }
+
+    @RequestMapping(path = "toresearchfund", method = RequestMethod.GET)
+    public String toResearchFund() {
+        return "research-fund";
+    }
+
+    @RequestMapping(path = "tocreateemp", method = RequestMethod.GET)
+    public String toCreateEmployee() {
+        return "create-employee";
+    }
+
+    @RequestMapping(path = "toviewcust", method = RequestMethod.GET)
+    public String toViewCust() {
+        return "viewcustomer";
+    }
+
+    @RequestMapping(path = "tofunddetl", method = RequestMethod.GET)
+    public String toFundDetl() {
+        return "fund-details";
+    }
+}

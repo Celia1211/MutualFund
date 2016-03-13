@@ -1,0 +1,52 @@
+<%@ include file="template-header.jsp" %>
+
+	<h2>${user.firstname} ${user.lastname}</h2>
+	
+	<h3>Current cash balance: ${customer.cash}</h3>
+	
+	<h3>Please enter information of the fund you plan to purchase:</h3><br>
+	
+	<form method="post" action="buyfund" class="col-lg-4" >
+	<div class="form-group">
+		<font size="4">
+			<label for="fundName">Fund Name:</label>
+		</font>
+			<%-- <select class="form-control">
+			<c:forEach var="name" items="${fn:escapeXml(param.fundList)}">
+			<option>${fn:escapeXml(param.name)}</option><br>
+			</c:forEach>
+			</select> --%>
+			<input type="text" id ="fundName" class="form-control" placeholder="Fund name"
+			name="${fn:escapeXml(param.name)}"/>
+	</div>
+		
+	<div class="form-group">
+		<font size="4">		
+			<label for="fundTicker">Fund Ticker:</label>
+		</font>
+		<input type="text" id ="fundTicker" class="form-control" placeholder="Fund ticker"
+		name="${fn:escapeXml(param.symbol)}"/>
+	</div>
+		
+	<div class="form-group">
+		<font size="4">	<label>Current Price:</label>
+			<label>${fundpricehistory.price}/share</label>
+		</font>
+	</div>
+
+	<div class="form-group">
+		<font size="4">	
+			<label for="totalAmount">Total amount to spend:</label>
+		</font>
+			<input type="text" name ="totalAmount" class="form-control" placeholder="Total amount for purchase"
+			name="${fn:escapeXml(param.purchaseAmount)}">
+	</div>
+		
+	<div class="form-group">
+		<input type="submit" class="btn btn-primary" name="button" value="Submit"/>
+		<input type="reset" class="btn btn-primary" name="button" value="Reset"/>
+	</div>
+	
+	</form>
+
+<%@ include file="template-footer.jsp" %>

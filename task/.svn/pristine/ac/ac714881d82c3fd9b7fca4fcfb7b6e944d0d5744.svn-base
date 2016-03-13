@@ -1,0 +1,12 @@
+<%@ include file="template-header.jsp" %>
+<h2>Customer List:</h2>
+
+<c:forEach var="customer" items="${customerList}">
+	<a href="toviewcust?customerId=${ customer.customerId}">
+	    <i class="fa fa-envelope"></i>
+	    ${customer.firstname} ${customer.lastname}
+	    </a>
+</c:forEach>
+
+
+<%@ include file="template-footer.jsp" %>

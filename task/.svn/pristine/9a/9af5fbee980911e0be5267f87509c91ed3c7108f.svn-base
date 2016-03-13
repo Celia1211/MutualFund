@@ -1,0 +1,10 @@
+<%@ include file="template-headerforVisitor.jsp"%>
+
+<div class="col-lg-10">	
+<h3></h3>
+
+<!-- <a href="tologin">Login</a > -->
+
+</div>
+
+<%@ include file="template-footer.jsp" %>

@@ -1,0 +1,16 @@
+<%@ include file="template-header.jsp" %>
+<h2>View Customer List:</h2>
+	<form method="post" action="viewcustomerlist"
+		class="col-lg-4">
+		<div class="form-group">
+ <a href="toviewcust">
+      <i class="fa fa-envelope"></i> 
+      	<span>
+	      	<c:forEach var="user" items="${userList}">
+				<td>${user.firstname} ${user.lastname}</td>
+			</c:forEach>
+		</span>
+ </a>
+</div>
+</form>
+<%@ include file="template-footer.jsp" %>

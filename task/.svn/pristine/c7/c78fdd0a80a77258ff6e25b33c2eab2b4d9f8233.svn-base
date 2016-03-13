@@ -1,0 +1,26 @@
+package dao;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import model.FundPriceHistory;
+
+/**
+ * @Prime13 Consultants
+ */
+@Repository
+@Transactional
+public class FundPriceHistoryDao extends GenericDao<FundPriceHistory> {
+    public Long findCurPriceByFundId(Long fundId) {
+        return em.createQuery(
+                "SELECT MAX(e.price) FROM FundPriceHistory e WHERE e.id.fundId = :fundId AND e.id.priceDate = (SELECT MAX(f.id.priceDate) FROM FundPriceHistory f WHERE f.id.fundId = :fundId)",
+                Long.class).setParameter("fundId", fundId).getResultList().get(0);
+    }
+
+    public List<FundPriceHistory> findByFundId(Long fundId) {
+        return em.createQuery("SELECT e FROM FundPriceHistory e WHERE e.id.fundId = :fundId ORDER BY e.id.priceDate",
+                genericType).setParameter("fundId", fundId).getResultList();
+    }
+}

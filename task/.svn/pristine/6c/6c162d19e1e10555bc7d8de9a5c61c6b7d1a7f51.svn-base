@@ -1,0 +1,64 @@
+<%@ include file="template-header.jsp" %>
+<h2><b>Create a new employee account</b></h2>
+<h5 style="color:red">All the fields are required</h5>
+
+<div class="col-lg-4">
+	<font size="4">
+	<form method="post" action="createEmployee">
+		<div>
+		<c:if test="${!(empty errorMsgs)}">
+		<div class="alert alert-danger alert-dismissable">
+            <i class="fa fa-warning"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <c:forEach var="errorMsg" items="${errorMsgs}">
+				<b>${errorMsg}</b><br>
+			</c:forEach>
+        </div>
+        </c:if>
+		<c:if test="${empty errorMsgs and !(empty message)}">
+			<div class="alert alert-success alert-dismissable">
+            <i class="fa fa-check"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <b>${message}</b>
+        	</div>
+		</c:if>
+		</div>
+		<div class="form-group">
+			<label> User Name:</label>
+			<input type="text" class="form-control" placeholder="User Name"
+					name="userName" value="${fn:escapeXml(param.userName)}"/>
+		</div>
+		<div class="form-group">
+			<label> First Name:</label>
+			<input type="text" class="form-control" placeholder="First Name"
+					name="firstName" value="${fn:escapeXml(param.firstName)}"/>
+		</div>
+		<div class="form-group">
+			<label> Last Name:</label>
+			<input type="text" class="form-control" placeholder="Last Name"
+					name="lastName" value="${fn:escapeXml(param.lastName)}"/>
+		</div>
+    	<div class="form-group"> 
+	 		<div class="col-sm-offset-3 col-sm-3"> 
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div> 
+			<div class="col-sm-offset-1 col-sm-5"> 
+				<button type="reset" class="btn btn-primary">Reset</button>
+			</div> 
+		</div>
+	</form>
+	
+</font>
+</div>
+
+<div class="col-lg-12">
+            <div class="form-group">
+            	<div class="alert alert-info alert-dismissable">
+                    <i class="fa fa-info"></i>
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    By clicking "Submit" button, we will generate a random password for this account and 
+                    send an email to the provided email address.
+                </div>
+            </div>
+</div>
+<%@ include file="template-footer.jsp" %>

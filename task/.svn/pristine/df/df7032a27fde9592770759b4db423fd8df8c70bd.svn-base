@@ -1,0 +1,33 @@
+<%@ include file="template-header.jsp" %>
+
+
+	<h2>Create Fund</h2>
+<form method="post" action="createFund"
+		class="col-lg-4"> 
+		<div class="form-group">
+			<label for="fundName"> Fund Name:</label>
+			
+				<input type="text" class="form-control" placeholder="Fund Name"
+					name="name" value="${fn:escapeXml(param.name)}"/>
+		
+		</div>
+		<div class="form-group">
+			<label for="fundTicker"> Fund Ticker:</label>
+			
+				<input type="text" class="form-control" placeholder="Fund Ticker"
+					name="symbol" value="${fn:escapeXml(param.symbol)}"/>
+			
+		</div>		
+		
+		 <div class="form-group"> 
+	 	<div class="col-sm-offset-3 col-sm-3"> 
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div> 
+			<div class="col-sm-offset-1 col-sm-5"> 
+				<button type="reset" class="btn btn-primary">Reset</button>
+		</div> 
+		</div>
+	</form>
+</div> -->
+</form>
+<%@ include file="template-footer.jsp" %>

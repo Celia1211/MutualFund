@@ -1,0 +1,54 @@
+package model;
+
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Entity
+public class Position {
+
+    @EmbeddedId
+    private PositionPK id;
+
+    @Column
+    private Long shares;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "fundId", insertable = false, updatable = false)
+    private Fund fund;
+
+    @Transient
+    private Long curSharePrice;
+
+    public PositionPK getId() {
+        return id;
+    }
+
+    public void setId(PositionPK id) {
+        this.id = id;
+    }
+
+    public Long getShares() {
+        return shares;
+    }
+
+    public void setShares(Long shares) {
+        this.shares = shares;
+    }
+
+    public Long getCurSharePrice() {
+        return curSharePrice;
+    }
+
+    public void setCurSharePrice(Long curSharePrice) {
+        this.curSharePrice = curSharePrice;
+    }
+
+}

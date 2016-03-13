@@ -1,0 +1,13 @@
+package controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Controller
+@Transactional
+public class EmployeeController {
+
+}

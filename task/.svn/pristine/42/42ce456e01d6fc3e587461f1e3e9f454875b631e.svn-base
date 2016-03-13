@@ -1,0 +1,26 @@
+package dao;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import model.Customer;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Repository
+@Transactional
+public class CustomerDao extends GenericDao<Customer> {
+    public List<Customer> getAllCustomers() {
+        return em.createQuery("SELECT e FROM Customer e", genericType).getResultList();
+    }
+
+    public Customer findCustomerByName(String username) {
+        List<Customer> result = em.createQuery("SELECT e FROM Customer e WHERE e.username = :name", genericType)
+                .setParameter("username", username).getResultList();
+
+        return (result.isEmpty()) ? null : result.get(0);
+    }
+}

@@ -1,0 +1,13 @@
+package exception;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+public class UnauthorizedAccessException extends RuntimeException {
+
+    private static final long serialVersionUID = -3366937684760271645L;
+
+    public UnauthorizedAccessException(String message) {
+        super(message);
+    }
+}

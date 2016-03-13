@@ -1,0 +1,63 @@
+package dao;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.core.GenericTypeResolver;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * @Prime13 Consultants
+ */
+@Repository
+@Transactional
+public abstract class GenericDao<T> {
+
+    Class<T> genericType;
+
+    @PersistenceContext
+    EntityManager em;
+
+    @SuppressWarnings("unchecked")
+    public GenericDao() {
+        this.genericType = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), GenericDao.class);
+    }
+
+    public void save(T entity) {
+        em.persist(entity);
+    }
+
+    public void delete(Object id) {
+        Object entity = em.find(genericType, id);
+        if (entity != null) {
+            em.remove(entity);
+        }
+    }
+
+    public void update(Object entity) {
+        em.merge(entity);
+    }
+
+    public T find(Object id) {
+        return em.find(genericType, id);
+    }
+
+    public T findByColumn(String colName, String val) {
+        List<T> result = em
+                .createQuery("SELECT e FROM " + genericType.getName() + " e WHERE e." + colName + " = :" + colName,
+                        genericType)
+                .setParameter(colName, val).getResultList();
+
+        return (result.isEmpty()) ? null : result.get(0);
+    }
+
+    public List<T> fuzzySearchByColumn(String colName, String val) {
+        val = "%" + val + "%";
+        return em.createQuery("SELECT e FROM " + genericType.getName() + " e WHERE e." + colName + " like :" + colName,
+                genericType).setParameter(colName, val).getResultList();
+
+    }
+}

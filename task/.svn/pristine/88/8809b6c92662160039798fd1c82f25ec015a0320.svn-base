@@ -1,0 +1,46 @@
+<jsp:include page="template-header.jsp" />
+
+	<h2>Mr. Weiyu Yan</h2>
+	
+	<h3>Current cash balance: $1,0000</h3>
+	
+	Please enter information of the fund you plan to purchase:<br>
+	
+	<form method="post" action="buyfund" class="col-lg-2">
+		<div class="form-group">
+			<label for="fundName">Fund Name:</label>
+			<select class="form-control">
+		<option>IBM</option>
+		<option>Oracle</option>
+		<option>Apple</option>
+		<option>Google</option>
+		<option>AB</option>
+		<option>CD</option>
+		<option>EF</option>
+		</select>
+		</div>
+		
+		<div class="form-group">
+			<label for="fundName">Fund Ticker:</label>
+			<input type="text" id ="fundTicker" class="form-control" placeholder="Fund ticker"
+			name="fundTicker" readonly/>
+		</div>
+		
+		<div class="form-group">
+			<label>Current Price:</label>
+			<label>$50</label>
+		</div>
+
+		<div class="form-group">
+			<label for="fundName">Total amount to spend:</label>
+			<input type="text" id ="totalAmount" class="form-control" placeholder="Total amount for purchase">
+		</div>
+	
+		<div class="form-group">
+			<input type="submit" class="btn btn-primary btn-sm" name="button" value="Submit"/>
+			<input type="reset" class="btn btn-primary btn-sm" name="button" value="Reset"/>
+		</div>
+		
+	</form>
+
+<jsp:include page="template-footer.jsp" />

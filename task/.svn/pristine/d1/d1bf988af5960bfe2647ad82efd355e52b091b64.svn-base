@@ -1,0 +1,26 @@
+package service;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/application-context.xml" })
+@Rollback
+@Transactional
+public class MailServiceTest {
+    @Autowired
+    private MailService mailService;
+
+    @Test
+    public void testSendMail() {
+        mailService.sendMail("Mutual Fund Test Mail", "ckyuto@gmail.com", "Hi, How are you?");
+    }
+}

@@ -1,0 +1,135 @@
+<jsp:include page="template-header.jsp" />
+
+<div class="col-lg-10">
+	
+	<h3>Transition-day</h3>
+<!-- 
+<form method="post" action="transition-day" class="col-md-8"> -->
+<table class="table table-striped table-hover">
+<tr>
+<td>Date</td>
+<td>No.</td>
+<td>Fund Name</td>
+<td>Fund Ticker</td>
+<td>Closing Price($)</td>
+</tr>
+<tr>
+<td><input type="text" id ="date" class="form-control" 
+			name="date" /></td>
+<td>1</td>
+<td><select class="form-control">
+		<option>IBM</option>
+		<option>Oracle</option>
+		<option>Apple</option>
+		<option>Google</option>
+		<option>AB</option>
+		<option>CD</option>
+		<option>EF</option>
+		</select></td>
+<td><input type="text" id ="fundTicker" class="form-control" placeholder="PMSDSH"
+			name="fundTicker" readonly/></td>
+<td><input type="text" class="form-control" 
+			style="text-align:right" name="closingprice" readonly/></td>
+</tr>
+<tr>		
+<td><input type="text" id ="date" class="form-control" 
+			name="date" /></td>
+<td>2</td>
+<td><select class="form-control">
+		<option>IBM</option>
+		<option>Oracle</option>
+		<option>Apple</option>
+		<option>Google</option>
+		<option>AB</option>
+		<option>CD</option>
+		<option>EF</option>
+		</select>
+			</td>
+<td><input type="text" id ="fundTicker" class="form-control" placeholder="GOOG"
+			name="fundTicker" readonly/></td>
+<td><input type="text" class="form-control" 
+			name="closingprice" style="text-align:right" readonly/></td>
+</tr>
+<tr>	
+<td><input type="text" id ="date" class="form-control" 
+			name="date" /></td>	
+<td>3</td>
+<td><select class="form-control">
+		<option>IBM</option>
+		<option>Oracle</option>
+		<option>Apple</option>
+		<option>Google</option>
+		<option>AB</option>
+		<option>CD</option>
+		<option>EF</option>
+		</select>
+			</td>
+<td><input type="text" id ="fundTicker" class="form-control" placeholder="APPL"
+			name="fundTicker" readonly/></td>
+<td><input type="text" class="form-control" 
+			name="closingprice" style="text-align:right" readonly/></td>
+</tr>
+<tr>	
+<td><input type="text" id ="date" class="form-control" 
+			name="date" /></td>
+<td>4</td>
+<td><select class="form-control">
+		<option>IBM</option>
+		<option>Oracle</option>
+		<option>Apple</option>
+		<option>Google</option>
+		<option>AB</option>
+		<option>CD</option>
+		<option>EF</option>
+		</select></td>
+<td><input type="text" id ="fundTicker" class="form-control" placeholder="AB"
+			name="fundTicker" readonly/></td>
+<td><input type="text" class="form-control" 
+			name="closingprice" style="text-align:right" readonly/></td>
+</tr>
+<tr>
+<td><input type="text" id ="date" class="form-control" 
+			name="date" /></td>	
+<td>5</td>
+<td><select class="form-control">
+		<option>IBM</option>
+		<option>Oracle</option>
+		<option>Apple</option>
+		<option>Google</option>
+		<option>AB</option>
+		<option>CD</option>
+		<option>EF</option>
+		</select></td>
+<td><input type="text" id ="fundTicker" class="form-control" placeholder="CD"
+			name="fundTicker" readonly/></td>
+<td><input type="text" class="form-control" 
+			name="closingprice" style="text-align:right" readonly/></td>
+</tr>
+<tr>
+<td><input type="text" id ="date" class="form-control" 
+			name="date" /></td>
+<td>6</td>
+<td><select class="form-control">
+		<option>IBM</option>
+		<option>Oracle</option>
+		<option>Apple</option>
+		<option>Google</option>
+		<option>AB</option>
+		<option>CD</option>
+		<option>EF</option>
+		</select></td>
+<td><input type="text" id ="fundTicker" class="form-control" placeholder="EF"
+			name="fundTicker" readonly/></td>
+<td><input type="text" class="form-control" 
+			name="closingprice" style="text-align:right" readonly/></td>
+</tr>
+</table>
+<input type="submit" class="btn btn-primary btn-sm" name="button"
+			value="Submit" />
+<input type="reset" class="btn btn-primary btn-sm" name="button"
+			value="Reset" />
+<!-- </form> -->
+</div>
+
+<jsp:include page="template-footer.jsp" />
+  

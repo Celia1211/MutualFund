@@ -1,0 +1,79 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import dao.CustomerDao;
+import dao.EmployeeDao;
+import model.Customer;
+import util.Utils;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Controller
+@Transactional
+public class CustomerController {
+
+    @Autowired
+    private CustomerDao customerDao;
+
+    @Autowired
+    private EmployeeDao employeeDao;
+
+    @RequestMapping(path = "createCustomer", method = RequestMethod.POST)
+    public String createCustomer(@RequestParam("userName") String userName, @RequestParam("firstName") String firstName,
+            @RequestParam("lastName") String lastName, @RequestParam("password") String password,
+            @RequestParam("confirmPass") String confirmPass, @RequestParam("Addr1") String addr1,
+            @RequestParam("Addr2") String addr2, @RequestParam("state") String state, @RequestParam("city") String city,
+            @RequestParam("zip") String zip, HttpServletRequest request) {
+
+        List<String> errorMsgs = new ArrayList<>();
+        request.setAttribute("errorMsgs", errorMsgs);
+
+        Utils.checkRequiredField(userName, "User Name", errorMsgs);
+        Utils.checkRequiredField(firstName, "First Name", errorMsgs);
+        Utils.checkRequiredField(lastName, "Last Name", errorMsgs);
+        Utils.checkRequiredField(password, "Password", errorMsgs);
+        Utils.checkRequiredField(confirmPass, "Confirm Password", errorMsgs);
+        Utils.checkRequiredField(addr1, "Address Line 1", errorMsgs);
+        Utils.checkRequiredField(state, "state", errorMsgs);
+        Utils.checkRequiredField(city, "city", errorMsgs);
+        Utils.checkRequiredField(zip, "zip", errorMsgs);
+
+        if (employeeDao.findByColumn("username", userName) != null
+                || customerDao.findByColumn("username", userName) != null) {
+            errorMsgs.add("User Name exists!");
+        }
+
+        Utils.checkNewPassword(password, confirmPass, errorMsgs);
+
+        if (!errorMsgs.isEmpty()) {
+            return "create-customer";
+        }
+
+        Customer customer = new Customer();
+        customer.setUsername(userName);
+        customer.setFirstname(firstName);
+        customer.setLastname(lastName);
+        customer.setPassword(Utils.md5(password));
+        customer.setAddrLine1(addr1);
+        customer.setAddrLine2(addr2);
+        customer.setState(state);
+        customer.setCity(city);
+        customer.setZip(zip);
+
+        customerDao.save(customer);
+
+        return "create-customer";
+    }
+}

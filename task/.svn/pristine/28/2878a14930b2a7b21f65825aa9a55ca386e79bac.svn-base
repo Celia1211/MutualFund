@@ -1,0 +1,69 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import dao.CustomerDao;
+import dao.EmployeeDao;
+import model.Employee;
+import util.Utils;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Controller
+@Transactional
+public class EmployeeController {
+    @Autowired
+    private CustomerDao customerDao;
+
+    @Autowired
+    private EmployeeDao employeeDao;
+
+    @RequestMapping(path = "createEmployee", method = RequestMethod.POST)
+    public String createEmployee(@RequestParam("userid") String userid, @RequestParam("password") String password,
+            @RequestParam("confirmPassword") String confirmPassword, @RequestParam("firstName") String firstName,
+            @RequestParam("lastName") String lastName, @RequestParam("email") String email,
+            HttpServletRequest request) {
+
+        List<String> errorMsgs = new ArrayList<>();
+        request.setAttribute("errorMsgs", errorMsgs);
+
+        Utils.checkRequiredField(userid, "User Name", errorMsgs);
+        Utils.checkRequiredField(firstName, "First Name", errorMsgs);
+        Utils.checkRequiredField(lastName, "Last Name", errorMsgs);
+        Utils.checkRequiredField(email, "Email", errorMsgs);
+        Utils.checkRequiredField(password, "Password", errorMsgs);
+
+        if (employeeDao.find(userid) != null) {
+            errorMsgs.add("User Name exists!");
+        }
+
+        Utils.checkPassword(password, confirmPassword, errorMsgs);
+
+        if (errorMsgs.size() > 0) {
+            return "create-employee";
+        }
+
+        Employee emp = new Employee();
+        emp.setUsername(userid);
+        emp.setFirstname(firstName);
+        emp.setLastname(lastName);
+        emp.setEmail(email);
+        emp.setPassword(Utils.md5(password));
+
+        employeeDao.save(emp);
+
+        return "create-employee";
+    }
+
+}

@@ -1,0 +1,45 @@
+<jsp:include page="template-header.jsp" />
+
+	<h3>Mr. Weiyu Yan</h3>
+	
+	<h4>Current cash balance: $0</h4>
+	
+	Please input the information of the fund you plan to sell:<br>
+	
+	<form method="post" action="sellfund" class="col-lg-4">
+	<div class="form-group">
+			<label for="fundName">Fund Name:</label>
+		<select class="form-control">
+		<option>IBM</option>
+		<option>Oracle</option>
+		<option>Apple</option>
+		<option>Google</option>
+		<option>AB</option>
+		<option>CD</option>
+		<option>EF</option>
+		</select>
+			</div>
+			
+	<div class="form-group">
+			<label for="fundTicker">Fund Ticker:</label>
+		<input type="text" id ="fundTicker" class="form-control" placeholder="Fund ticker"
+			name="fundTicker" readonly/></div>
+	
+	<div class="form-group">
+			<label for="currentPrice">Current Price:</label>
+	<label>$5/share</label>
+	</div>
+	
+	<div class="form-group">
+			<label for="shareNumber">Share number to sell:</label>
+		<input type="text" id="shareNumber" class="form-control" placeholder="Shares number" 
+			name="sharesNumber" /></div>
+	
+	<div class="form-group">
+			<input type="submit" class="btn btn-primary btn-sm" name="button" value="Submit"/>
+			<input type="reset" class="btn btn-primary btn-sm" name="button" value="Reset"/>
+		</div>
+		
+	</form>
+
+<jsp:include page="template-footer.jsp" />

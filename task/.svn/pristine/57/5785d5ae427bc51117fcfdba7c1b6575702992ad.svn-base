@@ -1,0 +1,27 @@
+package dao;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import model.Transaction;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Repository
+@Transactional
+public class TransactionDao extends GenericDao<Transaction> {
+    public List<Transaction> findByCustomerId(Long customerId) {
+        return em.createQuery("SELECT e From Transaction e WHERE e.customerId = :customerId", genericType)
+                .setParameter("customerId", customerId).getResultList();
+    }
+
+    public Date findLastTransactionByCustId(Long customerId) {
+        return em.createQuery("SELECT MAX(e.executeDate) From Transaction e WHERE e.customerId = :customerId",
+                Date.class).setParameter("customerId", customerId).getResultList().get(0);
+
+    }
+}

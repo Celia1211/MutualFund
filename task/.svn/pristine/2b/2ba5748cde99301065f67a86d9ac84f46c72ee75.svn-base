@@ -1,0 +1,3 @@
+${param.label}
+<input type="text" class="form-control" placeholder="${param.placeholder}"
+			name="${param.name}" /><br> 

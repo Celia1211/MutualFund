@@ -1,0 +1,111 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import dao.CustomerDao;
+import dao.EmployeeDao;
+import model.Customer;
+import model.Employee;
+import model.User;
+import util.Utils;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Controller
+public class CommonController {
+
+    @Autowired
+    private CustomerDao customerDao;
+
+    @Autowired
+    private EmployeeDao employeeDao;
+
+    @RequestMapping(path = "tologin", method = RequestMethod.GET)
+    public String toLogin() {
+        return "login";
+    }
+
+    @RequestMapping(path = "login", method = RequestMethod.POST)
+    public String login(@RequestParam("username") String userName, @RequestParam("password") String password,
+            HttpServletRequest request) {
+        User user = customerDao.findByColumn("username", userName);
+        HttpSession session = request.getSession();
+
+        if (user != null && Utils.md5(password).equals(user.getPassword())) {
+            session.setAttribute("user", user);
+            session.setAttribute("role", "Customer");
+            return "viewaccount";
+        }
+
+        user = employeeDao.findByColumn("username", userName);
+
+        if (user != null && Utils.md5(password).equals(user.getPassword())) {
+            session.setAttribute("user", user);
+            session.setAttribute("role", "Employee");
+            return "viewcustomerlist";
+        }
+
+        request.setAttribute("error", "User name or password is incorrect");
+        return "login";
+    }
+
+    @RequestMapping(path = "tochgpwd", method = RequestMethod.GET)
+    public String toChangePassword() {
+        return "changepassword";
+    }
+
+    @RequestMapping(path = "toresearchfund", method = RequestMethod.GET)
+    public String toResearchFund() {
+        return "research-fund";
+    }
+
+    @RequestMapping(path = "tofunddetl", method = RequestMethod.GET)
+    public String toFundDetl() {
+        return "fund-details";
+    }
+
+    @RequestMapping(path = "logout", method = RequestMethod.POST)
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "index";
+    }
+
+    @RequestMapping(path = "changepassword", method = RequestMethod.POST)
+    public String changePassword(@RequestParam("oldPassword") String oldPassword,
+            @RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword,
+            HttpServletRequest request) {
+        List<String> errorMsgs = new ArrayList<>();
+        request.setAttribute("errorMsgs", errorMsgs);
+
+        User user = (User) request.getAttribute("user");
+        Utils.changePasswordCheck(oldPassword, user.getPassword(), newPassword, confirmPassword, errorMsgs);
+
+        if (!errorMsgs.isEmpty()) {
+            return "changepassword.jsp";
+        }
+
+        user.setPassword(Utils.md5(newPassword));
+
+        if (user instanceof Customer) {
+            customerDao.update((user));
+        }
+
+        if (user instanceof Employee) {
+            employeeDao.update(user);
+        }
+
+        return "changepassword.jsp";
+    }
+
+}

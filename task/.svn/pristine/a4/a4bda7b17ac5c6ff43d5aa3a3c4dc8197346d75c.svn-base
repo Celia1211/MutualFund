@@ -1,0 +1,44 @@
+<jsp:include page="template-header.jsp" />
+<div class="col-lg-10">
+<h1>Mr.Weiyu Yan</h1>
+<h4>your current address is:417 crag street.</h4>
+<h4>your last trade is on:01/09/2016</h4>
+<h3>Basic Information of the Fund You Own:</h3>
+<p><td><input type="text" 
+			name="checknumber" />
+<input type="submit" class="btn btn-primary btn-sm" name="button" value="Request a check" /></td></p>
+<form method="post" action="requestcheck">
+<table class="table table-striped table-hover">
+<!-- <table border="1" cellspacing="0" cellpadding="30" style="margin-left:0.75in"> -->
+	<thead>
+		<tr>
+			<th>No.</th>
+			<th>Ticker</th>
+			<th>Fund Name</th>
+			<th>Shares Number</th>
+			<th>Total Value</th>
+			
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>PMSDHS</td>
+			<td>tomorrow security</td>
+			<td>200</td>
+			<td>$10000</td>
+			
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>NSDITS</td>
+			<td>citi bank</td>
+			<td>100</td>
+			<td>$4900</td>
+			
+</tr>
+
+	</table>
+	</form>
+	</div>
+<jsp:include page="template-footer.jsp" />

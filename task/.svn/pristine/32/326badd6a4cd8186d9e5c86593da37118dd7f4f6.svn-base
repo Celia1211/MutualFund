@@ -1,0 +1,212 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import dao.CustomerDao;
+import dao.EmployeeDao;
+import dao.FundDao;
+import dao.FundPriceHistoryDao;
+import dao.PositionDao;
+import dao.TransactionDao;
+import model.Customer;
+import model.Fund;
+import model.Position;
+import model.Transaction;
+import model.User;
+import util.Constants.TransactionStatus;
+import util.Constants.TransactionType;
+import util.Utils;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Controller
+@Transactional
+public class CustomerController {
+
+    @Autowired
+    private CustomerDao customerDao;
+
+    @Autowired
+    private EmployeeDao employeeDao;
+
+    @Autowired
+    private FundDao fundDao;
+
+    @Autowired
+    private TransactionDao tranDao;
+
+    @Autowired
+    private PositionDao positionDao;
+
+    @Autowired
+    private FundPriceHistoryDao fundPriceHistoryDao;
+
+    @RequestMapping(path = "tobuyfund", method = RequestMethod.GET)
+    public String toBuyFund(@RequestParam("fundId") Long fundId, HttpServletRequest request) {
+        Fund fund = fundDao.find(fundId);
+        fund.setCurrentPrice(fundPriceHistoryDao.findCurPriceByFundId(fundId));
+        request.setAttribute("fund", fund);
+        return "buyfund";
+    }
+
+    @RequestMapping(path = "tosellfund", method = RequestMethod.GET)
+    public String toSellFund(@RequestParam("fundId") Long fundId, HttpServletRequest request) {
+        Fund fund = fundDao.find(fundId);
+        fund.setCurrentPrice(fundPriceHistoryDao.findCurPriceByFundId(fundId));
+        request.setAttribute("fund", fund);
+        return "sellfund";
+    }
+
+    @RequestMapping(path = "buyfund", method = RequestMethod.POST)
+    public String buyFund(@RequestParam("fundName") String fundName, @RequestParam("fundTicker") String fundTicker,
+            @RequestParam("totalAmount") String totalAmount, HttpServletRequest request) {
+        List<String> errorMsgs = new ArrayList<>();
+        request.setAttribute("errorMsgs", errorMsgs);
+
+        Fund fund = fundDao.findByNameAndSymbol(fundName, fundTicker);
+        Utils.checkLongInputStr(totalAmount, "Total amount to spend", errorMsgs);
+        if (fund == null) {
+            errorMsgs.add("Fund not found");
+        }
+
+        if (!errorMsgs.isEmpty()) {
+            return "buyfund";
+        }
+
+        // TODO check user account cannot be negative
+        Customer customer = (Customer) request.getSession().getAttribute("user");
+
+        Transaction tran = new Transaction();
+        tran.setAmount(Long.valueOf(totalAmount));
+        tran.setCustomerId(customer.getId());
+        tran.setFund(fund);
+        tran.setOrderDate(new Date());
+        tran.setStatus(TransactionStatus.PENDING);
+        tran.setTransactionType(TransactionType.BUY);
+
+        tranDao.save(tran);
+        request.setAttribute("message", "Success");
+        request.setAttribute("tabName", "transition");
+        return "viewaccount";
+    }
+
+    @RequestMapping(path = "sellfund", method = RequestMethod.POST)
+    public String sellFund(@RequestParam("fundName") String fundName, @RequestParam("fundTicker") String fundTicker,
+            @RequestParam("shareNumber") String shareNumber, HttpServletRequest request) {
+        List<String> errorMsgs = new ArrayList<>();
+        request.setAttribute("errorMsgs", errorMsgs);
+
+        Fund fund = fundDao.findByNameAndSymbol(fundName, fundTicker);
+        Utils.checkLongInputStr(shareNumber, "Share number to sell", errorMsgs);
+        if (fund == null) {
+            errorMsgs.add("Fund not found");
+        }
+
+        if (!errorMsgs.isEmpty()) {
+            return "sellfund";
+        }
+
+        // TODO check share cannot be negative
+        Customer customer = (Customer) request.getSession().getAttribute("user");
+
+        Transaction tran = new Transaction();
+        tran.setShares(Long.valueOf(shareNumber));
+        tran.setCustomerId(customer.getId());
+        tran.setFund(fund);
+        tran.setOrderDate(new Date());
+        tran.setStatus(TransactionStatus.PENDING);
+        tran.setTransactionType(TransactionType.SELL);
+
+        tranDao.save(tran);
+
+        request.setAttribute("message", "Success");
+        request.setAttribute("tabName", "transition");
+
+        return "sellfund";
+    }
+
+    @RequestMapping(path = "requestcheck", method = RequestMethod.POST)
+    public String requestCheck(@RequestParam("checkNumber") String checkNumber, HttpServletRequest request) {
+        List<String> errorMsgs = new ArrayList<>();
+        request.setAttribute("errorMsgs", errorMsgs);
+
+        Utils.checkLongInputStr(checkNumber, "Check Number", errorMsgs);
+        if (!errorMsgs.isEmpty()) {
+            return "viewaccount";
+        }
+
+        // TODO check number cannot cause balance negative
+        Customer customer = (Customer) request.getSession().getAttribute("user");
+
+        Transaction tran = new Transaction();
+        tran.setCustomerId(customer.getId());
+        tran.setOrderDate(new Date());
+        tran.setStatus(TransactionStatus.PENDING);
+        tran.setTransactionType(TransactionType.REQUEST_CHECK);
+        tran.setAmount(Long.valueOf(checkNumber));
+
+        tranDao.save(tran);
+
+        return "viewaccount";
+    }
+
+    @RequestMapping(path = "toviewacct", method = RequestMethod.GET)
+    public String toViewAccount(@RequestParam("tabName") String tabName, HttpServletRequest request) {
+        request.setAttribute("tabName", tabName);
+
+        User user = (User) request.getSession().getAttribute("user");
+        
+        request.setAttribute("transactionList", tranDao.findByCustomerId(user.getId()));
+        viewCustomerAccount(user.getId(), request);
+
+        return "viewaccount";
+    }
+
+    public void viewCustomerAccount(Long customerId, HttpServletRequest request) {
+        request.setAttribute("lastExecutionDate", tranDao.findLastTransactionByCustId(customerId));
+
+        List<Position> positions = positionDao.findPositionsByCustomerId(customerId);
+
+        for (Position position : positions) {
+            position.setCurSharePrice(fundPriceHistoryDao.findCurPriceByFundId(position.getId().getFundId()));
+        }
+
+        request.setAttribute("positionList", positions);
+    }
+
+    @RequestMapping(path = "fundpricehistory", method = RequestMethod.POST)
+    public String fundPriceHistory(@RequestParam("fundId") Long fundId, HttpServletRequest request) {
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(fundPriceHistoryDao.findByFundId(fundId));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        request.setAttribute("fundHistoryData", json);
+
+        return "research-fund";
+    }
+
+    @RequestMapping(path = "researchFund", method = RequestMethod.POST)
+    public String researchFund(@RequestParam("searchBy") String option, @RequestParam("value") String value,
+            HttpServletRequest request) {
+        request.setAttribute("resultList", fundDao.fuzzySearchByColumn(option, value));
+        return "research-result";
+    }
+
+}

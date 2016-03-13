@@ -1,0 +1,67 @@
+<%@ include file="template-header.jsp" %>
+
+	<h2>Research Fund</h2>
+	<div>
+		<form method="post" action="researchFund"
+			class="form-inline col-lg-offset-2 col-lg-10" role="search">
+		<div class="table-responsive col-lg-10">
+			<div class="form-group">
+				<label> Search by</label>
+				<div class="form-group">
+					<select class="form-control" name="searchBy">
+						<option>Fund Name</option>
+						<option>Fund Ticker</option>
+					</select>
+				</div>
+				<div class="form-group">
+				<input type="text" class="form-control" style="text-align:right" placeholder="Search Fund" name="fund" value="${fn:escapeXml(param.fund)}">
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary">Search</button>
+			</div>
+		</form>
+		</div>
+		<div >
+<div class="col-lg-5">
+
+                            <!-- small box -->
+                            <div class="small-box bg-aqua">
+                                <div class="inner">
+                                    <h3>
+                                        150
+                                    </h3>
+                                    <p>
+                                        New Orders
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-bag"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">
+                                    More info <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+<div class="col-lg-5">
+
+                            <!-- small box -->
+                            <div class="small-box bg-aqua">
+                                <div class="inner">
+                                    <h3>
+                                        150
+                                    </h3>
+                                    <p>
+                                        New Orders
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-bag"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">
+                                    More info <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+
+                        </div>
+</div>
+<%@ include file="template-footer.jsp" %>

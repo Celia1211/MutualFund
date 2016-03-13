@@ -1,0 +1,15 @@
+package dao;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import model.Customer;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Repository
+@Transactional
+public class CustomerDao extends GenericDao<Customer> {
+
+}

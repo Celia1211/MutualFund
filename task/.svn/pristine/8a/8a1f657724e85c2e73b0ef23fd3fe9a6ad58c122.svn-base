@@ -1,0 +1,21 @@
+<%@ include file="template-header.jsp" %>
+<h2>${user.firstname} ${user.lastname}</h2>
+<font size="4">
+	<form method="post" action="changepassword" class="col-lg-4">
+	<label for="oldpassword">Old Password:</label>
+		<input type="password" class="form-control" placeholder="Please input your old password"
+			name="oldPassword" /><br> 
+	<label for="newpassword">New Password:</label>
+				<input type="password" class="form-control" placeholder="At least 6 digit length"
+			name="newPassword" /><br> 
+	<label for="confirmpassword">Confirm New Password:</label>
+				<input type="password" class="form-control" placeholder="Please confirm your new password"
+			name="confirmPassword" /><br> 
+		
+	<input type="submit" class="btn btn-primary" name="button"
+		value="Login" />
+	<input type="submit" class="btn btn-primary"name="button"
+		value="Reset" />
+	</form>
+</font>
+<%@ include file="template-footer.jsp" %>

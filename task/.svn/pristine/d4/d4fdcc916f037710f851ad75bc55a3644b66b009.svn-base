@@ -1,0 +1,23 @@
+<jsp:include page="template-header.jsp" />
+<div class="col-lg-10">
+
+	<form method="post" action="login" class="col-lg-3">
+	Old Password:
+		<input type="password" class="form-control" placeholder="Please input your old password"
+			name="oldPassword" /><br> 
+	New Password
+				<input type="password" class="form-control" placeholder="Please input your new password"
+			name="newPassword" /><br> 
+	Confirm New Password:
+				<input type="password" class="form-control" placeholder="Please confirm your new password"
+			name="confirmPassword" /><br> 
+		
+		<input type="submit" class="btn btn-primary btn-sm" name="button"
+			value="Login" />
+			<input type="submit" class="btn btn-primary btn-sm" name="button"
+			value="Reset" />
+	</form>
+<br>
+<br>
+</div>
+<jsp:include page="template-footer.jsp" />

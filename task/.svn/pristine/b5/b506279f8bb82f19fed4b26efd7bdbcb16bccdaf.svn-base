@@ -1,0 +1,32 @@
+package dao;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import model.Transaction;
+import util.Constants.TransactionStatus;
+
+/**
+ * @Prime13 Consultants
+ */
+@Repository
+@Transactional
+public class TransactionDao extends GenericDao<Transaction> {
+    public List<Transaction> findByCustomerId(Long customerId, TransactionStatus status) {
+        return em.createQuery("SELECT e From Transaction e WHERE e.customerId = :customerId AND e.status = :status", genericType)
+                .setParameter("customerId", customerId).setParameter("status", status).getResultList();
+    }
+
+    public Date findLastTransactionByCustId(Long customerId) {
+        return em.createQuery("SELECT MAX(e.executeDate) From Transaction e WHERE e.customerId = :customerId",
+                Date.class).setParameter("customerId", customerId).getResultList().get(0);
+    }
+
+    public List<Transaction> findAllPendingTranBefore(Date orderDate) {
+        return em.createQuery("SELECT e FROM Transaction e WHERE e.executeDate = null AND e.orderDate <= :orderDate",
+                genericType).setParameter("orderDate", orderDate).getResultList();
+    }
+}

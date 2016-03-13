@@ -1,0 +1,33 @@
+package util;
+
+import java.util.List;
+
+import com.mysql.jdbc.StringUtils;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+public final class Utils {
+    private Utils() {
+
+    }
+
+    public static void checkRequiredField(String value, String fieldName, List<String> errorMsgs) {
+        if (StringUtils.isEmptyOrWhitespaceOnly(value)) {
+            errorMsgs.add(fieldName + " is required");
+        }
+    }
+
+    public static void checkPassword(String password, String confirmPassword, List<String> errorMsgs) {
+        if (password.length() < 6) {
+            errorMsgs.add("The length of password should be at least 6!");
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            errorMsgs.add("Password and Confirm Password are not consistent!");
+            return;
+        }
+    }
+
+}

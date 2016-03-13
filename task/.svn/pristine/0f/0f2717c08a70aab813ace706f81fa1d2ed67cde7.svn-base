@@ -1,0 +1,60 @@
+
+<jsp:include page="template-header.jsp" />
+
+	<h3>Create Employee Account</h3>
+	<form method="post" action="createEmployee"
+		class="col-lg-4">
+		<div class="form-group">
+			<label> User Name:</label>
+			
+				<input type="text" class="form-control" placeholder="User Name"
+					name="userName" />
+			</div>
+		
+		<div class="form-group">
+			<label> First Name:</label>
+			
+				<input type="text" class="form-control" placeholder="First Name"
+					name="firstName" />
+			
+		</div>
+		<div class="form-group">
+			<label> Last Name:</label>
+			
+				<input type="text" class="form-control" placeholder="Last Name"
+					name="lastName" />
+			</div>
+
+	  <div class="form-group">
+			<label> Email:</label>
+			
+				<input type="text" class="form-control" placeholder="xinyanliu@gmail.com"
+					name="email" />
+			
+		</div>
+	   <div class="form-group">
+			<label> Password:</label>
+			
+				<input type="password" class="form-control" placeholder="at least 6 digit length"
+					name="password" />
+			
+		</div>
+			 <div class="form-group">
+			<label> Confirm Password:</label>
+			
+				<input type="password" class="form-control" placeholder="repeat password"
+					name="confirmPassword" />
+			
+		</div>
+		<!-- <div class="form-group"> -->
+			<!-- <div class="col-sm-offset-3 col-sm-3"> -->
+				<button type="submit" class="btn btn-primary">Submit</button>
+			<!-- </div>
+			<div class="col-sm-offset-1 col-sm-5"> -->
+				<button type="reset" class="btn btn-primary">Reset</button>
+			<!-- </div>
+		</div> -->
+	</form>
+
+
+<jsp:include page="template-footer.jsp" />

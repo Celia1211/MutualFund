@@ -1,0 +1,93 @@
+<%@ include file="template-header.jsp" %>
+<div class="row">
+<div class="col-lg-4">
+	<h2>Research Fund</h2>
+	</div>
+	<div class="col-lg-8">
+	<div>
+		<form method="post" action="researchFund"
+			class="form-inline col-lg-offset-2 col-lg-10" role="search">
+		<div class="table-responsive col-lg-10">
+			<div class="form-group">
+				<label> Search by</label>
+				<div class="form-group">
+					<select class="form-control" name="searchBy">
+						<option>Fund Name</option>
+						<option>Fund Ticker</option>
+					</select>
+				</div>
+				<div class="form-group">
+				<input type="text" class="form-control" style="text-align:right" placeholder="Search Fund" name="fund" value="${fn:escapeXml(param.fund)}">
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary">Search</button>
+			</div>
+		</form>
+		</div>
+		<div >
+
+                       </div>
+                        </div>
+                          </div>
+<div class="row">
+
+  <div class="col-lg-9">
+    <div class="thumbnail">
+      <img src="..." alt="...">
+      <div class="caption">
+        <h3>Thumbnail label</h3>
+        <p>...</p>
+        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+
+                            <!-- small box -->
+                            <div class="small-box bg-gray">
+                                
+                               
+                                <a  class="small-box-header font-black">
+                                    TOP 10 Closing Price Board
+                                  
+                                </a>
+                                <div class="inner">
+                                  fjdslkajflksdajflksdjlfk
+                                </div>
+                            </div>
+
+                        </div>
+                        </div>
+                        
+                          <div class="row">
+  <div class="col-lg-9">
+
+    <div class="thumbnail">
+        <h3>How to get real time insights</h3>
+      <img src="..." alt="...">
+      <div class="caption">
+       
+        <p>...</p>
+        <p><a href="#" class="btn btn-primary" class="pull-right" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>
+         </div>
+          <div class="row">
+  <div class="col-lg-9">
+    <div class="thumbnail">
+      <img src="..." alt="...">
+      <div class="caption">
+        <h3>Thumbnail label</h3>
+        <p>...</p>
+        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<%@ include file="template-footer.jsp" %>
+
+ 

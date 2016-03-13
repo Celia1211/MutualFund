@@ -1,0 +1,22 @@
+package dao;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import model.Fund;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Repository
+@Transactional
+public class FundDao extends GenericDao<Fund> {
+
+    // public Fund findByName(String name) {
+    //
+    // }
+    //
+    // public FundBySymbol(String symbol){
+    //
+    // }
+}

@@ -1,0 +1,23 @@
+package util;
+
+import java.util.List;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+public final class Utils {
+    private Utils() {
+
+    }
+
+    public static boolean isEmpty(String str) {
+        return (str == null || str.trim().equals(""));
+    }
+
+    public static void checkRequiredField(String value, String fieldName, List<String> errorMsgs) {
+        if (isEmpty(value)) {
+            errorMsgs.add(fieldName + " is required");
+        }
+    }
+
+}

@@ -1,0 +1,23 @@
+package controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+
+import dao.CustomerDao;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Controller
+@Transactional
+public class CustomerController {
+
+    @Autowired
+    private CustomerDao customerDao;
+
+    public String createCustomer() {
+
+        return "create-customer";
+    }
+}

@@ -1,0 +1,172 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import dao.CustomerDao;
+import dao.EmployeeDao;
+import dao.FundDao;
+import dao.TransactionDao;
+import model.Customer;
+import model.Employee;
+import model.Fund;
+import model.Transaction;
+import util.Constants.TransactionStatus;
+import util.Constants.TransactionType;
+import util.Utils;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Controller
+@Transactional
+public class EmployeeController {
+    @Autowired
+    private CustomerDao customerDao;
+
+    @Autowired
+    private EmployeeDao employeeDao;
+
+    @Autowired
+    private FundDao fundDao;
+
+    @Autowired
+    private TransactionDao tranDao;
+
+    @RequestMapping(path = "tocreateemp", method = RequestMethod.GET)
+    public String toCreateEmployee() {
+        return "create-employee";
+    }
+
+    @RequestMapping(path = "tocreatecust", method = RequestMethod.GET)
+    public String toCreateCust() {
+        return "create-customer";
+    }
+
+    @RequestMapping(path = "tocreatefund", method = RequestMethod.GET)
+    public String toCreateFund() {
+        return "create-fund";
+    }
+
+    @RequestMapping(path = "toviewcust", method = RequestMethod.GET)
+    public String toViewCust() {
+        return "viewcustomer";
+    }
+
+    @RequestMapping(path = "toviewcustlist", method = RequestMethod.GET)
+    public String toViewCustlist() {
+        return "viewcustomerlist";
+    }
+
+    @RequestMapping(path = "totransiday", method = RequestMethod.GET)
+    public String toTransitionDay() {
+        return "transition-day";
+    }
+
+    @RequestMapping(path = "createEmployee", method = RequestMethod.POST)
+    public String createEmployee(@RequestParam("userName") String userName, @RequestParam("password") String password,
+            @RequestParam("confirmPassword") String confirmPassword, @RequestParam("firstName") String firstName,
+            @RequestParam("lastName") String lastName, HttpServletRequest request) {
+
+        List<String> errorMsgs = new ArrayList<>();
+        request.setAttribute("errorMsgs", errorMsgs);
+
+        Utils.checkRequiredField(userName, "User Name", errorMsgs);
+        Utils.checkRequiredField(firstName, "First Name", errorMsgs);
+        Utils.checkRequiredField(lastName, "Last Name", errorMsgs);
+        Utils.checkRequiredField(password, "Password", errorMsgs);
+
+        if (employeeDao.findByColumn("username", userName) != null
+                || customerDao.findByColumn("username", userName) != null) {
+            errorMsgs.add("User Name exists!");
+        }
+
+        Utils.checkNewPassword(password, confirmPassword, errorMsgs);
+
+        if (!errorMsgs.isEmpty()) {
+            return "create-employee";
+        }
+
+        Employee emp = new Employee();
+        emp.setUsername(userName);
+        emp.setFirstname(firstName);
+        emp.setLastname(lastName);
+        emp.setPassword(Utils.md5(password));
+
+        employeeDao.save(emp);
+
+        request.setAttribute("message", "Success!");
+
+        return "create-employee";
+    }
+
+    @RequestMapping(path = "createFund", method = RequestMethod.POST)
+    public String createFund(@RequestParam("name") String fundName, @RequestParam("symbol") String symbol,
+            HttpServletRequest request) {
+        List<String> errorMsgs = new ArrayList<>();
+        request.setAttribute("errorMsgs", errorMsgs);
+
+        Utils.checkRequiredField(fundName, "Fund Name", errorMsgs);
+        Utils.checkRequiredField(symbol, "Fund Ticker", errorMsgs);
+
+        if (!errorMsgs.isEmpty()) {
+            return "create-fund";
+        }
+
+        if (fundDao.findByColumn("name", fundName) != null) {
+            errorMsgs.add("Fund Name exist!");
+        }
+
+        if (fundDao.findByColumn("symbol", symbol) != null) {
+            errorMsgs.add("Fund Ticker exist!");
+        }
+
+        if (errorMsgs.isEmpty()) {
+            Fund fund = new Fund();
+            fund.setName(fundName);
+            fund.setSymbol(symbol);
+
+            fundDao.save(fund);
+
+            request.setAttribute("message", "Success!");
+        }
+
+        return "create-fund";
+
+    }
+
+    @RequestMapping(path = "depositCheck", method = RequestMethod.POST)
+    public String depositCheck(@RequestParam("depositamount") String depositAmount, HttpServletRequest request) {
+        List<String> errorMsgs = new ArrayList<>();
+        request.setAttribute("errorMsgs", errorMsgs);
+
+        Utils.checkLongInputStr(depositAmount, "Deposit Amount", errorMsgs);
+        if (!errorMsgs.isEmpty()) {
+            return "viewaccount";
+        }
+
+        Customer customer = (Customer) request.getSession().getAttribute("user");
+
+        Transaction tran = new Transaction();
+        tran.setCustomerId(customer.getId());
+        tran.setOrderDate(new Date());
+        tran.setStatus(TransactionStatus.PENDING);
+        tran.setTransactionType(TransactionType.DEPOSIT);
+        tran.setAmount(Long.valueOf(depositAmount));
+
+        tranDao.save(tran);
+
+        return "viewaccount";
+    }
+
+}

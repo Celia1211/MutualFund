@@ -1,0 +1,15 @@
+package dao;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import model.FundPriceHistory;
+
+/**
+ * @author wyen Wei-Yu Yen.
+ */
+@Repository
+@Transactional
+public class FundPriceHistoryDao extends GenericDao<FundPriceHistory> {
+
+}

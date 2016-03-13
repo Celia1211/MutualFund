@@ -1,0 +1,11 @@
+<%@ include file="template-header.jsp" %>
+<h2>View Customer List:</h2>
+	<form method="post" action="viewcustomerlist"
+		class="col-lg-4">
+		<div class="form-group">
+ <a href="toviewcust">
+      <i class="fa fa-envelope"></i> <span>Weiyu Yan</span>
+                            </a>
+</div>
+</form>
+<%@ include file="template-footer.jsp" %>

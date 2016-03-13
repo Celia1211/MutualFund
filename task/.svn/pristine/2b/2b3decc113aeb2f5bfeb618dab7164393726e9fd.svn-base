@@ -1,0 +1,133 @@
+<%@ include file="template-header.jsp" %>
+<div class="col-lg-10">
+<!-- 
+<form method="post" action="transition-day" class="col-md-8"> -->
+<table class="table table-striped table-hover">
+<tr>
+<td>Date</td>
+<td>No.</td>
+<td>Fund Name</td>
+<td>Fund Ticker</td>
+<td>Closing Price($)</td>
+</tr>
+
+<tr>
+<td><input type="text" id ="date" class="form-control" 
+			name="priceDate" value="${fn:escapeXml(param.priceDate)}" /></td>
+<td>1</td>
+<td><select class="form-control">
+		<option>IBM</option>
+		<option>Oracle</option>
+		<option>Apple</option>
+		<option>Google</option>
+		<option>AB</option>
+		<option>CD</option>
+		<option>EF</option>
+		</select></td>
+<td><input type="text" id ="fundTicker" class="form-control" placeholder="PMSDSH"
+			name="symbol" value="${fn:escapeXml(param.symbol)" readonly/></td>
+<td><input type="text" class="form-control" 
+			style="text-align:right" name="price" value="${fn:escapeXml(param.price)" readonly/></td>
+</tr>
+<tr>		
+<td><input type="text" id ="date" class="form-control" 
+			name="priceDate" value="${fn:escapeXml(param.priceDate)}"/></td>
+<td>2</td>
+<td><select class="form-control">
+		<option>IBM</option>
+		<option>Oracle</option>
+		<option>Apple</option>
+		<option>Google</option>
+		<option>AB</option>
+		<option>CD</option>
+		<option>EF</option>
+		</select>
+			</td>
+<td><input type="text" id ="fundTicker" class="form-control" placeholder="GOOG"
+			name="symbol" value="${fn:escapeXml(param.symbol)" readonly/></td>
+<td><input type="text" class="form-control" 
+			name="price" value="${fn:escapeXml(param.price)" style="text-align:right" readonly/></td>
+</tr>
+<tr>	
+<td><input type="text" id ="date" class="form-control" 
+			name="priceDate" value="${fn:escapeXml(param.priceDate)}" /></td>	
+<td>3</td>
+<td><select class="form-control">
+		<option>IBM</option>
+		<option>Oracle</option>
+		<option>Apple</option>
+		<option>Google</option>
+		<option>AB</option>
+		<option>CD</option>
+		<option>EF</option>
+		</select>
+			</td>
+<td><input type="text" id ="fundTicker" class="form-control" placeholder="APPL"
+			name="symbol" value="${fn:escapeXml(param.symbol)" readonly/></td>
+<td><input type="text" class="form-control" 
+			name="price" value="${fn:escapeXml(param.price)" style="text-align:right" readonly/></td>
+</tr>
+<tr>	
+<td><input type="text" id ="date" class="form-control" 
+			name="date" /></td>
+<td>4</td>
+<td><select class="form-control">
+		<option>IBM</option>
+		<option>Oracle</option>
+		<option>Apple</option>
+		<option>Google</option>
+		<option>AB</option>
+		<option>CD</option>
+		<option>EF</option>
+		</select></td>
+<td><input type="text" id ="fundTicker" class="form-control" placeholder="AB"
+			name="symbol" value="${fn:escapeXml(param.symbol)" readonly/></td>
+<td><input type="text" class="form-control" 
+			name="price" value="${fn:escapeXml(param.price)" style="text-align:right" readonly/></td>
+</tr>
+<tr>
+<td><input type="text" id ="date" class="form-control" 
+			name="priceDate" value="${fn:escapeXml(param.priceDate)}"/></td>	
+<td>5</td>
+<td><select class="form-control">
+		<option>IBM</option>
+		<option>Oracle</option>
+		<option>Apple</option>
+		<option>Google</option>
+		<option>AB</option>
+		<option>CD</option>
+		<option>EF</option>
+		</select></td>
+<td><input type="text" id ="fundTicker" class="form-control" placeholder="CD"
+			name="symbol" value="${fn:escapeXml(param.symbol)" readonly/></td>
+<td><input type="text" class="form-control" 
+			name="price" value="${fn:escapeXml(param.price)" style="text-align:right" readonly/></td>
+</tr>
+<tr>
+<td><input type="text" id ="date" class="form-control" 
+			name="priceDate" value="${fn:escapeXml(param.priceDate)}" /></td>
+<td>6</td>
+<td><select class="form-control">
+		<option>IBM</option>
+		<option>Oracle</option>
+		<option>Apple</option>
+		<option>Google</option>
+		<option>AB</option>
+		<option>CD</option>
+		<option>EF</option>
+		</select></td>
+<td><input type="text" id ="fundTicker" class="form-control" placeholder="EF"
+			name="symbol" value="${fn:escapeXml(param.symbol)" readonly/></td>
+<td><input type="text" class="form-control" 
+			name="price" value="${fn:escapeXml(param.price)" style="text-align:right" readonly/></td>
+</tr>
+</table>
+<input type="submit" class="btn btn-primary" name="button"
+			value="Submit" />
+<input type="reset" class="btn btn-primary" name="button"
+			value="Reset" />
+<!-- </form> -->
+</div>
+<%@ include file="template-footer.jsp" %>
+
+  

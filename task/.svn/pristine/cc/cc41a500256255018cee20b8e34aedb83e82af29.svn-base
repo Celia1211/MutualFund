@@ -1,0 +1,58 @@
+<%@ include file="template-headertemp.jsp" %>
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="left-side sidebar-offcanvas">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar user panel -->
+                     
+                    <div class="user-panel">
+                        <div class="pull-left info">
+                            <p>Hello, ${fn:escapeXml(param.userName)}</p>
+                        </div>
+                    </div>
+                     
+                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                    <ul class="sidebar-menu">
+					<li class="active"><a href="index.html"> <i
+							class="fa fa-dashboard"></i> <span>Home</span>
+					</a></li>
+
+					<li><a href="totransiday"> <i class="fa fa-table"></i> <span>Transition
+								Day</span>
+					</a></li>
+					<li class="treeview"><a href="#"> <i
+							class="fa fa-bar-chart-o"></i> <span>View Customer</span> <i
+							class="fa fa-angle-left pull-right"></i>
+					</a>
+
+		        <form method="post" action="researchCustomer"
+			class="treeview-menu" role="search">
+				<input type="text" class="form-control" style="text-align:right" placeholder="Search Customer" name="customer" value="${fn:escapeXml(param.customer)}">
+			    <button type="submit" class="btn btn-primary">Search</button>
+
+		       </form>
+		        
+		        </li>
+					<li><a href="totransiday"> <i class="fa fa-table"></i> <span>Create Fund
+								Day</span>
+					</a></li>
+						<li class="treeview"><a href="#"> <i
+							class="fa fa-bar-chart-o"></i> <span>Create User</span> <i
+							class="fa fa-angle-left pull-right"></i>
+					</a>
+						<ul class="treeview-menu">
+							<li><a href="createCustomer"><i
+									class="fa fa-angle-double-right"></i> Create Customer</a></li>
+							<li><a href="createEmployee"><i
+									class="fa fa-angle-double-right"></i> Create Employee</a></li>
+						</ul></li>
+				</ul>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+            <!-- Right side column. Contains the navbar and content of the page -->
+            <aside class="right-side">
+                <!-- Content Header (Page header) -->
+                <section class="content">
+                    

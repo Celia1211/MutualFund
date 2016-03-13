@@ -1,0 +1,77 @@
+package model;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+public class FundInfo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long infoId;
+
+    @Column
+    private Long customerId;
+
+    @Column
+    private Long fundId;
+    
+    @Column
+    private String fundName;
+    
+    @Column
+    private String symbol;
+
+    @Column
+    private Long shares;
+    
+    @Column
+    private Double value;
+
+    @Column
+    private Double amount;
+
+    public Long getInfoId() {
+        return infoId;
+    }
+
+    public void setInfoId(Long infoId) {
+        this.infoId = infoId;
+    }
+
+    public String getFundName() {
+        return fundName;
+    }
+
+    public void setFundName(String fundName) {
+        this.fundName = fundName;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+}

@@ -1,0 +1,22 @@
+<jsp:include page="template-header.jsp" />
+<h3>Mr. Weiyu Yan</h3>
+
+	<form method="post" action="changepassword" class="col-lg-4">
+	<label for="oldpassword">Old Password:</label>
+		<input type="password" class="form-control" placeholder="Please input your old password"
+			name="oldPassword" /><br> 
+	<label for="newpassword">New Password:</label>
+				<input type="password" class="form-control" placeholder="At least 6 digit length"
+			name="newPassword" /><br> 
+	<label for="confirmpassword">Confirm New Password:</label>
+				<input type="password" class="form-control" placeholder="Please confirm your new password"
+			name="confirmPassword" /><br> 
+		
+		<input type="submit" class="btn btn-primary btn-sm" name="button"
+			value="Login" />
+			<input type="submit" class="btn btn-primary btn-sm" name="button"
+			value="Reset" />
+	</form>
+<br>
+<br>
+<jsp:include page="template-footer.jsp" />

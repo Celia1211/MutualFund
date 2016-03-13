@@ -1,0 +1,10 @@
+<jsp:include page="template-header.jsp" />
+<h3>View Customer List:</h3>
+	<form method="post" action="viewcustomerlist"
+		class="col-lg-4">
+		<div class="form-group">
+ <a href="toviewcust">
+      <i class="fa fa-envelope"></i> <span>Weiyu Yan</span>
+                            </a>
+</div>
+</form>
